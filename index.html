@@ -512,6 +512,7 @@
             box-shadow: var(--shadow-md);
             transition: all 0.3s ease;
             position: relative;
+            animation: fadeInUp 0.5s ease;
         }
 
         .product-card:hover {
@@ -739,6 +740,46 @@
             to { transform: rotate(360deg); }
         }
 
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .loading-overlay.active {
+            display: flex;
+        }
+
+        .loading-text {
+            margin-top: var(--spacing-md);
+            font-size: var(--font-size-lg);
+            color: white;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
         /* Focus styles */
         button:focus-visible,
         .category-card:focus-visible,
@@ -872,6 +913,14 @@
         </div>
     </div>
 
+    <!-- AI Processing Overlay -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loading">
+            <div class="spinner"></div>
+            <p class="loading-text" id="aiStatus">Analyzing your answers with AI...</p>
+        </div>
+    </div>
+
     <script>
         // App Data
         const appData = {
@@ -885,7 +934,7 @@
                     categoryTitle: "What would you like help with?",
                     nav: {
                         home: "Home",
-                        history: "History", 
+                        history: "History",
                         favorites: "Favorites",
                         profile: "Profile",
                         back: "Back",
@@ -894,7 +943,9 @@
                     },
                     results: {
                         title: "Your Personalized Recommendations",
-                        subtitle: "Based on your responses"
+                        subtitle: "AI-powered recommendations based on your responses"
+                    },
+                    aiProcessing: "Analyzing your answers with AI..."
                     }
 
                 },
@@ -916,7 +967,9 @@
                     },
                     results: {
                         title: "Tus Recomendaciones Personalizadas",
-                        subtitle: "Según tus respuestas"
+                        subtitle: "Recomendaciones impulsadas por IA según tus respuestas"
+                    },
+                    aiProcessing: "Analizando tus respuestas con IA..."
                     }
 
                 },
@@ -938,7 +991,9 @@
                     },
                     results: {
                         title: "Suas Recomendações Personalizadas",
-                        subtitle: "Com base nas suas respostas"
+                        subtitle: "Recomendações geradas por IA com base nas suas respostas"
+                    },
+                    aiProcessing: "Analisando suas respostas com IA..."
                     }
 
                 },
@@ -960,7 +1015,9 @@
                     },
                     results: {
                         title: "Ваши персональные рекомендации",
-                        subtitle: "На основе ваших ответов"
+                        subtitle: "Рекомендации от ИИ на основе ваших ответов"
+                    },
+                    aiProcessing: "Анализируем ваши ответы с помощью ИИ..."
                     }
 
                 }
@@ -1691,6 +1748,7 @@
             document.getElementById('startOverBtn').textContent = trans.nav.startOver;
             document.getElementById('resultsTitle').textContent = trans.results.title;
             document.getElementById('resultsSubtitle').textContent = trans.results.subtitle;
+            document.getElementById('aiStatus').textContent = trans.aiProcessing;
             // document.getElementById('startOverBtn').textContent = trans.results.startOver;
 
         }
@@ -1799,8 +1857,13 @@
                 return;
             }
             
-            showStep(3);
-            displayRecommendations();
+            const overlay = document.getElementById('loadingOverlay');
+            overlay.classList.add('active');
+            setTimeout(() => {
+                overlay.classList.remove('active');
+                showStep(3);
+                displayRecommendations();
+            }, 1500);
         }
 
         function displayRecommendations() {
