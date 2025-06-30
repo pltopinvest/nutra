@@ -1,0 +1,1921 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="theme-color" content="#4A90E2">
+    <title>Health Assistant - Your Wellness Companion</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary: #4A90E2;
+            --primary-dark: #357ABD;
+            --secondary: #7B68EE;
+            --success: #4CAF50;
+            --warning: #FF9800;
+            --danger: #F44336;
+            --bg-primary: #FFFFFF;
+            --bg-secondary: #F5F7FA;
+            --bg-tertiary: #E8ECF0;
+            --text-primary: #2C3E50;
+            --text-secondary: #64748B;
+            --text-tertiary: #94A3B8;
+            --border: #E2E8F0;
+            --shadow-sm: 0 2px 4px rgba(0,0,0,0.05);
+            --shadow-md: 0 4px 12px rgba(0,0,0,0.08);
+            --shadow-lg: 0 8px 24px rgba(0,0,0,0.12);
+            --radius-sm: 12px;
+            --radius-md: 16px;
+            --radius-lg: 24px;
+            --font-size-base: 17px;
+            --font-size-lg: 19px;
+            --font-size-xl: 22px;
+            --font-size-2xl: 28px;
+            --line-height: 1.6;
+            --spacing-xs: 8px;
+            --spacing-sm: 12px;
+            --spacing-md: 16px;
+            --spacing-lg: 24px;
+            --spacing-xl: 32px;
+            --header-height: 70px;
+            --bottom-nav-height: 80px;
+        }
+
+        [data-theme="dark"] {
+            --primary: #5BA0F2;
+            --primary-dark: #4A90E2;
+            --secondary: #9B88FF;
+            --bg-primary: #1A1A1A;
+            --bg-secondary: #252525;
+            --bg-tertiary: #2D2D2D;
+            --text-primary: #F0F0F0;
+            --text-secondary: #B0B0B0;
+            --text-tertiary: #808080;
+            --border: #404040;
+            --shadow-sm: 0 2px 4px rgba(0,0,0,0.2);
+            --shadow-md: 0 4px 12px rgba(0,0,0,0.3);
+            --shadow-lg: 0 8px 24px rgba(0,0,0,0.4);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-size: var(--font-size-base);
+            line-height: var(--line-height);
+            color: var(--text-primary);
+            background-color: var(--bg-secondary);
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* App Container */
+        .app-container {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: var(--bg-primary);
+            position: relative;
+        }
+
+        /* Header */
+        .app-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: var(--header-height);
+            background-color: var(--bg-primary);
+            border-bottom: 1px solid var(--border);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            padding: 0 var(--spacing-lg);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .header-content {
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .app-logo {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: white;
+        }
+
+        .logo-text {
+            font-size: var(--font-size-xl);
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            padding: calc(var(--header-height) + var(--spacing-lg)) var(--spacing-lg) calc(var(--bottom-nav-height) + var(--spacing-lg));
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        /* Bottom Navigation */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: var(--bottom-nav-height);
+            background-color: var(--bg-primary);
+            border-top: 1px solid var(--border);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: var(--spacing-sm) var(--spacing-lg);
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.05);
+        }
+
+        .bottom-nav-content {
+            width: 100%;
+            max-width: 600px;
+            display: flex;
+            justify-content: space-around;
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            padding: var(--spacing-xs) var(--spacing-md);
+            border-radius: var(--radius-sm);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            color: var(--text-tertiary);
+        }
+
+        .nav-item.active {
+            color: var(--primary);
+        }
+
+        .nav-icon {
+            font-size: 24px;
+        }
+
+        .nav-label {
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        /* Settings Menu */
+        .settings-menu {
+            display: flex;
+            gap: var(--spacing-sm);
+            align-items: center;
+        }
+
+        .language-button, .theme-button {
+            width: 44px;
+            height: 44px;
+            border-radius: var(--radius-sm);
+            background-color: var(--bg-secondary);
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 20px;
+        }
+
+        .language-button:hover, .theme-button:hover {
+            background-color: var(--bg-tertiary);
+            transform: scale(1.05);
+        }
+
+        /* Language Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0,0,0,0.5);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background-color: var(--bg-primary);
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-xl);
+            width: 90%;
+            max-width: 400px;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .modal-title {
+            font-size: var(--font-size-xl);
+            font-weight: 600;
+            margin-bottom: var(--spacing-lg);
+            text-align: center;
+        }
+
+        .language-list {
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-sm);
+        }
+
+        .language-option {
+            padding: var(--spacing-md) var(--spacing-lg);
+            background-color: var(--bg-secondary);
+            border: 2px solid transparent;
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: var(--font-size-base);
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+        }
+
+        .language-option:hover {
+            background-color: var(--bg-tertiary);
+            border-color: var(--primary);
+        }
+
+        .language-option.selected {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        /* Step Container */
+        .step-container {
+            display: none;
+            animation: slideIn 0.3s ease;
+        }
+
+        .step-container.active {
+            display: block;
+        }
+
+        @keyframes slideIn {
+            from { 
+                opacity: 0;
+                transform: translateX(20px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        /* Progress Bar */
+        .progress-container {
+            margin-bottom: var(--spacing-xl);
+            background-color: var(--bg-primary);
+            padding: var(--spacing-md);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .progress-steps {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: var(--spacing-md);
+        }
+
+        .progress-step {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-xs);
+            color: var(--text-tertiary);
+            font-size: 14px;
+        }
+
+        .progress-step.active {
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .progress-bar {
+            height: 8px;
+            background-color: var(--bg-tertiary);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            transition: width 0.5s ease;
+            border-radius: 4px;
+        }
+
+        /* Cards */
+        .welcome-card {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: var(--spacing-xl);
+            border-radius: var(--radius-lg);
+            margin-bottom: var(--spacing-xl);
+            text-align: center;
+            box-shadow: var(--shadow-md);
+        }
+
+        .welcome-title {
+            font-size: var(--font-size-2xl);
+            font-weight: 700;
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .welcome-subtitle {
+            font-size: var(--font-size-lg);
+            opacity: 0.9;
+        }
+
+        /* Category Grid */
+        .category-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: var(--spacing-md);
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .category-card {
+            background-color: var(--bg-primary);
+            border: 2px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-lg);
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow-sm);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: var(--spacing-sm);
+            min-height: 150px;
+            justify-content: center;
+        }
+
+        .category-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .category-card:active {
+            transform: translateY(-2px);
+        }
+
+        .category-icon {
+            font-size: 48px;
+            line-height: 1;
+        }
+
+        .category-name {
+            font-size: var(--font-size-base);
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        /* Question Card */
+        .question-card {
+            background-color: var(--bg-primary);
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-xl);
+            margin-bottom: var(--spacing-lg);
+            box-shadow: var(--shadow-md);
+        }
+
+        .question-number {
+            color: var(--primary);
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .question-title {
+            font-size: var(--font-size-xl);
+            font-weight: 600;
+            margin-bottom: var(--spacing-lg);
+            color: var(--text-primary);
+            line-height: 1.4;
+        }
+
+        .options-list {
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-sm);
+        }
+
+        .option-item {
+            background-color: var(--bg-secondary);
+            border: 2px solid transparent;
+            border-radius: var(--radius-md);
+            padding: var(--spacing-lg);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: var(--font-size-base);
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-md);
+            min-height: 60px;
+        }
+
+        .option-item:hover {
+            background-color: var(--bg-tertiary);
+            border-color: var(--primary);
+            transform: translateX(4px);
+        }
+
+        .option-item.selected {
+            background-color: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .option-radio {
+            width: 24px;
+            height: 24px;
+            border: 2px solid var(--border);
+            border-radius: 50%;
+            background-color: var(--bg-primary);
+            position: relative;
+            flex-shrink: 0;
+        }
+
+        .option-item.selected .option-radio {
+            border-color: white;
+        }
+
+        .option-item.selected .option-radio::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 12px;
+            height: 12px;
+            background-color: white;
+            border-radius: 50%;
+        }
+
+        /* Product Card */
+        .product-card {
+            background-color: var(--bg-primary);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            margin-bottom: var(--spacing-lg);
+            box-shadow: var(--shadow-md);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .product-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .product-header {
+            background: linear-gradient(135deg, var(--bg-secondary), var(--bg-tertiary));
+            padding: var(--spacing-lg);
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-lg);
+        }
+
+        .product-icon {
+            width: 80px;
+            height: 80px;
+            background-color: white;
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .product-info {
+            flex: 1;
+        }
+
+        .product-name {
+            font-size: var(--font-size-xl);
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 4px;
+        }
+
+        .product-price {
+            font-size: var(--font-size-2xl);
+            color: var(--primary);
+            font-weight: 700;
+        }
+
+        .match-badge {
+            position: absolute;
+            top: var(--spacing-md);
+            right: var(--spacing-md);
+            background-color: var(--success);
+            color: white;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .product-body {
+            padding: var(--spacing-lg);
+        }
+
+        .product-description {
+            color: var(--text-secondary);
+            margin-bottom: var(--spacing-lg);
+            font-size: var(--font-size-base);
+            line-height: 1.6;
+        }
+
+        .benefits-title {
+            font-size: var(--font-size-base);
+            font-weight: 600;
+            margin-bottom: var(--spacing-sm);
+            color: var(--text-primary);
+        }
+
+        .benefits-list {
+            list-style: none;
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .benefit-item {
+            display: flex;
+            align-items: flex-start;
+            gap: var(--spacing-sm);
+            padding: var(--spacing-xs) 0;
+            color: var(--text-secondary);
+            font-size: var(--font-size-base);
+        }
+
+        .benefit-icon {
+            color: var(--success);
+            font-size: 20px;
+            line-height: 1.4;
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: var(--spacing-md) var(--spacing-xl);
+            font-size: var(--font-size-base);
+            font-weight: 600;
+            text-decoration: none;
+            border-radius: var(--radius-md);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+            width: 100%;
+            min-height: 56px;
+            font-family: inherit;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            box-shadow: 0 4px 12px rgba(74, 144, 226, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(74, 144, 226, 0.4);
+        }
+
+        .btn-primary:active {
+            transform: translateY(0);
+        }
+
+        .btn-secondary {
+            background-color: var(--bg-tertiary);
+            color: var(--text-primary);
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--border);
+        }
+
+        /* Navigation Buttons */
+        .navigation-buttons {
+            display: flex;
+            gap: var(--spacing-md);
+            margin-top: var(--spacing-xl);
+        }
+
+        .nav-btn {
+            flex: 1;
+        }
+
+        /* Results Summary */
+        .results-header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: var(--spacing-xl);
+            border-radius: var(--radius-lg);
+            margin-bottom: var(--spacing-xl);
+            text-align: center;
+            box-shadow: var(--shadow-md);
+        }
+
+        .results-title {
+            font-size: var(--font-size-2xl);
+            font-weight: 700;
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .results-subtitle {
+            font-size: var(--font-size-lg);
+            opacity: 0.9;
+        }
+
+        /* Responsive */
+        @media (max-width: 480px) {
+            .category-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .app-header {
+                padding: 0 var(--spacing-md);
+            }
+            
+            .main-content {
+                padding-left: var(--spacing-md);
+                padding-right: var(--spacing-md);
+            }
+            
+            .logo-text {
+                font-size: var(--font-size-lg);
+            }
+        }
+
+        /* iOS Safe Area */
+        @supports (padding: max(0px)) {
+            .app-header {
+                padding-top: max(0px, env(safe-area-inset-top));
+                height: calc(var(--header-height) + max(0px, env(safe-area-inset-top)));
+            }
+            
+            .main-content {
+                padding-top: calc(var(--header-height) + max(0px, env(safe-area-inset-top)) + var(--spacing-lg));
+            }
+            
+            .bottom-nav {
+                padding-bottom: max(var(--spacing-sm), env(safe-area-inset-bottom));
+                height: calc(var(--bottom-nav-height) + max(0px, env(safe-area-inset-bottom)));
+            }
+        }
+
+        /* Loading State */
+        .loading {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: var(--spacing-xl);
+        }
+
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid var(--bg-tertiary);
+            border-top-color: var(--primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Focus styles */
+        button:focus-visible,
+        .category-card:focus-visible,
+        .option-item:focus-visible {
+            outline: 3px solid var(--primary);
+            outline-offset: 2px;
+        }
+    </style>
+    <link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
+<meta name="apple-mobile-web-app-title" content="Health">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="app-header">
+            <div class="header-content">
+                <div class="app-logo">
+                    <div class="logo-icon">💊</div>
+                    <div class="logo-text" id="logoText">Health</div>
+                </div>
+                <div class="settings-menu">
+                    <button class="language-button" id="languageBtn" aria-label="Change language">🌐</button>
+                    <button class="theme-button" id="themeBtn" aria-label="Toggle theme">🌓</button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Progress -->
+            <div class="progress-container" id="progressContainer" style="display: none;">
+                <div class="progress-steps">
+                    <div class="progress-step active" id="step1Label">
+                        <span>1</span>
+                        <span>Category</span>
+                    </div>
+                    <div class="progress-step" id="step2Label">
+                        <span>2</span>
+                        <span>Questions</span>
+                    </div>
+                    <div class="progress-step" id="step3Label">
+                        <span>3</span>
+                        <span>Results</span>
+                    </div>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressBar" style="width: 33%;"></div>
+                </div>
+            </div>
+
+            <!-- Step 1: Welcome & Categories -->
+            <div class="step-container active" id="step1">
+                <div class="welcome-card">
+                    <h1 class="welcome-title" id="welcomeTitle">Welcome to Your Health Assistant</h1>
+                    <p class="welcome-subtitle" id="welcomeSubtitle">Let's find the right solution for you</p>
+                </div>
+                
+                <h2 class="question-title" id="categoryTitle">What would you like help with?</h2>
+                <div class="category-grid" id="categoryGrid"></div>
+            </div>
+
+            <!-- Step 2: Questions -->
+            <div class="step-container" id="step2">
+                <div id="questionsContainer"></div>
+                <div class="navigation-buttons">
+                    <button class="btn btn-secondary nav-btn" onclick="goBack()" id="backBtn">Back</button>
+                    <button class="btn btn-primary nav-btn" onclick="processAnswers()" id="continueBtn">Continue</button>
+                </div>
+            </div>
+
+            <!-- Step 3: Results -->
+            <div class="step-container" id="step3">
+                <div class="results-header">
+                    <h2 class="results-title" id="resultsTitle">Your Personalized Recommendations</h2>
+                    <p class="results-subtitle" id="resultsSubtitle">Based on your responses</p>
+                </div>
+                <div id="productsContainer"></div>
+                <div class="navigation-buttons">
+                    <button class="btn btn-secondary" onclick="startOver()" id="startOverBtn">Start New Assessment</button>
+                </div>
+            </div>
+        </main>
+
+        <!-- Bottom Navigation -->
+        <nav class="bottom-nav">
+            <div class="bottom-nav-content">
+                <div class="nav-item active" onclick="showTab('home')">
+                    <span class="nav-icon">🏠</span>
+                    <span class="nav-label" id="navHome">Home</span>
+                </div>
+                <div class="nav-item" onclick="showTab('history')">
+                    <span class="nav-icon">📋</span>
+                    <span class="nav-label" id="navHistory">History</span>
+                </div>
+                <div class="nav-item" onclick="showTab('favorites')">
+                    <span class="nav-icon">❤️</span>
+                    <span class="nav-label" id="navFavorites">Favorites</span>
+                </div>
+                <div class="nav-item" onclick="showTab('profile')">
+                    <span class="nav-icon">👤</span>
+                    <span class="nav-label" id="navProfile">Profile</span>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Language Modal -->
+        <div class="modal" id="languageModal">
+            <div class="modal-content">
+                <h3 class="modal-title" id="languageModalTitle">Select Language</h3>
+                <div class="language-list">
+                    <div class="language-option" data-lang="en">
+                        <span>🇺🇸</span>
+                        <span>English</span>
+                    </div>
+                    <div class="language-option" data-lang="es">
+                        <span>🇪🇸</span>
+                        <span>Español</span>
+                    </div>
+                    <div class="language-option" data-lang="pt">
+                        <span>🇧🇷</span>
+                        <span>Português</span>
+                    </div>
+                    <div class="language-option" data-lang="ru">
+                        <!-- <span>🇷🇺</span> -->
+                        <span>  </span>
+                        <span>Русский</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // App Data
+        const appData = {
+            translations: {
+                en: {
+                    appName: "Health",
+                    welcome: {
+                        title: "Welcome to Your Health Assistant",
+                        subtitle: "Let's find the right solution for you"
+                    },
+                    categoryTitle: "What would you like help with?",
+                    nav: {
+                        home: "Home",
+                        history: "History", 
+                        favorites: "Favorites",
+                        profile: "Profile",
+                        back: "Back",
+                        continue: "Continue",
+                        startOver: "Start New Assessment"
+                    },
+                    results: {
+                        title: "Your Personalized Recommendations",
+                        subtitle: "Based on your responses"
+                    }
+
+                },
+                es: {
+                    appName: "Salud",
+                    welcome: {
+                        title: "Bienvenido a tu Asistente de Salud",
+                        subtitle: "Encontremos la solución adecuada para ti"
+                    },
+                    categoryTitle: "¿Con qué necesitas ayuda?",
+                    nav: {
+                        home: "Inicio",
+                        history: "Historial",
+                        favorites: "Favoritos", 
+                        profile: "Perfil",
+                        back: "Atrás",
+                        continue: "Continuar",
+                        startOver: "Nueva Evaluación"
+                    },
+                    results: {
+                        title: "Tus Recomendaciones Personalizadas",
+                        subtitle: "Según tus respuestas"
+                    }
+
+                },
+                pt: {
+                    appName: "Saúde",
+                    welcome: {
+                        title: "Bem-vindo ao seu Assistente de Saúde",
+                        subtitle: "Vamos encontrar a solução certa para você"
+                    },
+                    categoryTitle: "Com o que você precisa de ajuda?",
+                    nav: {
+                        home: "Início",
+                        history: "Histórico",
+                        favorites: "Favoritos",
+                        profile: "Perfil", 
+                        back: "Voltar",
+                        continue: "Continuar",
+                        startOver: "Nova Avaliação"
+                    },
+                    results: {
+                        title: "Suas Recomendações Personalizadas",
+                        subtitle: "Com base nas suas respostas"
+                    }
+
+                },
+                ru: {
+                    appName: "Здоровье",
+                    welcome: {
+                        title: "Добро пожаловать в Помощник Здоровья",
+                        subtitle: "Найдем подходящее решение для вас"
+                    },
+                    categoryTitle: "С чем вам нужна помощь?",
+                    nav: {
+                        home: "Главная",
+                        history: "История",
+                        favorites: "Избранное",
+                        profile: "Профиль",
+                        back: "Назад",
+                        continue: "Продолжить",
+                        startOver: "Новая Оценка"
+                    },
+                    results: {
+                        title: "Ваши персональные рекомендации",
+                        subtitle: "На основе ваших ответов"
+                    }
+
+                }
+            },
+            categories: {
+                en: {
+                    head: "Head & Mind",
+                    energy: "Energy & Vitality",
+                    skin: "Skin & Beauty",
+                    joints: "Joints & Bones",
+                    sleep: "Sleep & Stress",
+                    immunity: "Immune Support",
+                    heart: "Heart Health",
+                    vision: "Vision & Hearing"
+                },
+                es: {
+                    head: "Cabeza y Mente",
+                    energy: "Energía y Vitalidad",
+                    skin: "Piel y Belleza",
+                    joints: "Articulaciones y Huesos",
+                    sleep: "Sueño y Estrés",
+                    immunity: "Apoyo Inmunológico",
+                    heart: "Salud del Corazón",
+                    vision: "Visión y Audición"
+
+                },
+                pt: {
+                    head: "Cabeça e Mente",
+                    energy: "Energia e Vitalidade",
+                    skin: "Pele e Beleza",
+                    joints: "Articulações e Ossos",
+                    sleep: "Sono e Estresse",
+                    immunity: "Suporte Imunológico",
+                    heart: "Saúde do Coração",
+                    vision: "Visão e Audição"
+
+                },
+                ru: {
+                    head: "Голова и Разум",
+                    energy: "Энергия и Жизненная Сила",
+                    skin: "Кожа и Красота",
+                    joints: "Суставы и Кости",
+                    sleep: "Сон и Стресс",
+                    immunity: "Поддержка Иммунитета",
+                    heart: "Сердечно-сосудистое здоровье",
+                    vision: "Зрение и Слух"
+
+                }
+
+
+            },
+            questions: {
+                head: [
+                    {
+                        en: "What type of discomfort?",
+                        es: "¿Qué tipo de molestia?",
+                        pt: "Que tipo de desconforto?",
+                        ru: "Какой тип дискомфорта?",
+                        options: {
+                            en: ["Migraine", "Tension headache", "Brain fog"],
+                            es: ["Migraña", "Dolor de cabeza tensional", "Niebla mental"],
+                            pt: ["Enxaqueca", "Dor de cabeça tensional", "Névoa mental"],
+                            ru: ["Мигрень", "Головная боль напряжения", "Туман в голове"]
+                        }
+                    },
+                    {
+                        en: "How often?",
+                        es: "¿Con qué frecuencia?",
+                        pt: "Com que frequência?",
+                        ru: "Как часто?",
+                        options: {
+                            en: ["Daily", "Weekly", "Monthly"],
+                            es: ["Diariamente", "Semanalmente", "Mensualmente"],
+                            pt: ["Diariamente", "Semanalmente", "Mensalmente"],
+                            ru: ["Ежедневно", "Еженедельно", "Ежемесячно"]
+                        }
+                    }
+                ],
+                energy: [
+                    {
+                        en: "When do you feel tired?",
+                        es: "¿Cuándo te sientes cansado?",
+                        pt: "Quando você se sente cansado?",
+                        ru: "Когда вы чувствуете усталость?",
+                        options: {
+                            en: ["Morning", "Afternoon", "All day"],
+                            es: ["Mañana", "Tarde", "Todo el día"],
+                            pt: ["Manhã", "Tarde", "O dia todo"],
+                            ru: ["Утром", "Днем", "Весь день"]
+                        }
+                    },
+                    {
+                        en: "Other symptoms?",
+                        es: "¿Otros síntomas?",
+                        pt: "Outros sintomas?",
+                        ru: "Другие симптомы?",
+                        options: {
+                            en: ["Poor focus", "Mood swings", "Muscle weakness"],
+                            es: ["Poca concentración", "Cambios de humor", "Debilidad muscular"],
+                            pt: ["Pouco foco", "Mudanças de humor", "Fraqueza muscular"],
+                            ru: ["Плохая концентрация", "Перепады настроения", "Мышечная слабость"]
+                        }
+                    }
+                ],
+                skin: [
+                    {
+                        en: "Main concern?",
+                        es: "¿Principal preocupación?",
+                        pt: "Principal preocupação?",
+                        ru: "Основная проблема?",
+                        options: {
+                            en: ["Dryness", "Wrinkles", "Sensitivity"],
+                            es: ["Sequedad", "Arrugas", "Sensibilidad"],
+                            pt: ["Secura", "Rugas", "Sensibilidade"],
+                            ru: ["Сухость", "Морщины", "Чувствительность"]
+                        }
+                    },
+                    {
+                        en: "Skin type?",
+                        es: "¿Tipo de piel?",
+                        pt: "Tipo de pele?",
+                        ru: "Тип кожи?",
+                        options: {
+                            en: ["Dry", "Oily", "Combination"],
+                            es: ["Seca", "Grasa", "Mixta"],
+                            pt: ["Seca", "Oleosa", "Mista"],
+                            ru: ["Сухая", "Жирная", "Комбинированная"]
+                        }
+                    }
+                ],
+                joints: [
+                      {
+                        en: "What is your main concern?",
+                        es: "¿Cuál es su principal preocupación?",
+                        pt: "Qual é a sua principal preocupação?",
+                        ru: "Какая у вас основная проблема?",
+                        options: {
+                          en: ["Joint pain", "Bone density", "Stiffness"],
+                          es: ["Dolor articular", "Densidad ósea", "Rigidez"],
+                          pt: ["Dor nas articulações", "Densidade óssea", "Rigidez"],
+                          ru: ["Боль в суставах", "Плотность костей", "Скованность"]
+                        }
+                      },
+                      {
+                        en: "When do you feel it most?",
+                        es: "¿Cuándo lo siente más?",
+                        pt: "Quando você sente mais?",
+                        ru: "Когда вы это чувствуете больше всего?",
+                        options: {
+                          en: ["Morning", "Evening", "All day"],
+                          es: ["Mañana", "Noche", "Todo el día"],
+                          pt: ["Manhã", "Noite", "O dia todo"],
+                          ru: ["Утром", "Вечером", "Весь день"]
+                        }
+                      }
+                    ],
+                    sleep: [
+                      {
+                        en: "What is your main issue?",
+                        es: "¿Cuál es su principal problema?",
+                        pt: "Qual é o seu principal problema?",
+                        ru: "В чём основная проблема?",
+                        options: {
+                          en: ["Can't fall asleep", "Waking up at night", "Feeling anxious"],
+                          es: ["No puedo dormir", "Me despierto por la noche", "Ansiedad"],
+                          pt: ["Não consegue dormir", "Acorda à noite", "Ansiedade"],
+                          ru: ["Трудности с засыпанием", "Пробуждение ночью", "Тревожность"]
+                        }
+                      },
+                      {
+                        en: "How long has it been affecting you?",
+                        es: "¿Cuánto tiempo le afecta?",
+                        pt: "Há quanto tempo isso te afeta?",
+                        ru: "Как долго это вас беспокоит?",
+                        options: {
+                          en: ["Less than a month", "1-6 months", "Over 6 months"],
+                          es: ["Menos de un mes", "1-6 meses", "Más de 6 meses"],
+                          pt: ["Menos de um mês", "1-6 meses", "Mais de 6 meses"],
+                          ru: ["Менее месяца", "1–6 месяцев", "Более 6 месяцев"]
+                        }
+                      }
+                    ],
+                    immunity: [
+                      {
+                        en: "How often do you get sick?",
+                        es: "¿Con qué frecuencia se enferma?",
+                        pt: "Com que frequência você adoece?",
+                        ru: "Как часто вы болеете?",
+                        options: {
+                          en: ["Rarely", "Sometimes", "Often"],
+                          es: ["Raramente", "A veces", "A menudo"],
+                          pt: ["Raramente", "Às vezes", "Frequentemente"],
+                          ru: ["Редко", "Иногда", "Часто"]
+                        }
+                      },
+                      {
+                        en: "Which season affects you most?",
+                        es: "¿Qué estación le afecta más?",
+                        pt: "Qual estação mais te afeta?",
+                        ru: "В какое время года вы болеете чаще?",
+                        options: {
+                          en: ["Winter", "Spring", "Fall"],
+                          es: ["Invierno", "Primavera", "Otoño"],
+                          pt: ["Inverno", "Primavera", "Outono"],
+                          ru: ["Зимой", "Весной", "Осенью"]
+                        }
+                      }
+                    ],
+                    heart: [
+                      {
+                        en: "Do you monitor your blood pressure?",
+                        es: "¿Monitorea su presión arterial?",
+                        pt: "Você monitora sua pressão arterial?",
+                        ru: "Вы следите за своим давлением?",
+                        options: {
+                          en: ["Yes", "Occasionally", "No"],
+                          es: ["Sí", "Ocasionalmente", "No"],
+                          pt: ["Sim", "Ocasionalmente", "Não"],
+                          ru: ["Да", "Иногда", "Нет"]
+                        }
+                      },
+                      {
+                        en: "Do you have a family history of heart disease?",
+                        es: "¿Tiene antecedentes familiares de enfermedades cardíacas?",
+                        pt: "Você tem histórico familiar de doenças cardíacas?",
+                        ru: "Есть ли в семье случаи сердечно-сосудистых заболеваний?",
+                        options: {
+                          en: ["Yes", "Not sure", "No"],
+                          es: ["Sí", "No estoy seguro", "No"],
+                          pt: ["Sim", "Não sei", "Não"],
+                          ru: ["Да", "Не уверен", "Нет"]
+                        }
+                      }
+                    ],
+                    vision: [
+                  {
+                    en: "What is your main concern?",
+                    es: "¿Cuál es su principal preocupación?",
+                    pt: "Qual é a sua principal preocupação?",
+                    ru: "Что вас больше всего беспокоит?",
+                    options: {
+                      en: ["Blurry vision", "Hearing loss", "Eye strain"],
+                      es: ["Visión borrosa", "Pérdida de audición", "Fatiga ocular"],
+                      pt: ["Visão embaçada", "Perda auditiva", "Cansaço ocular"],
+                      ru: ["Размытое зрение", "Потеря слуха", "Усталость глаз"]
+                    }
+                  },
+                  {
+                    en: "How long have you noticed it?",
+                    es: "¿Cuánto tiempo lleva notándolo?",
+                    pt: "Há quanto tempo percebeu isso?",
+                    ru: "Как давно это наблюдается?",
+                    options: {
+                      en: ["Less than a month", "Several months", "Over a year"],
+                      es: ["Menos de un mes", "Varios meses", "Más de un año"],
+                      pt: ["Menos de um mês", "Vários meses", "Mais de um ano"],
+                      ru: ["Менее месяца", "Несколько месяцев", "Более года"]
+                    }
+                  }
+                ],
+
+
+
+
+            },
+            products: {
+                head: [
+                    {
+                        name: {
+                            en: "MigraRelief Pro",
+                            es: "MigraRelief Pro",
+                            pt: "MigraRelief Pro",
+                            ru: "МиграРелиф Про"
+                        },
+                        price: "$49.99",
+                        icon: "💊",
+                        description: {
+                            en: "Advanced migraine support formula",
+                            es: "Fórmula avanzada para migrañas",
+                            pt: "Fórmula avançada para enxaquecas",
+                            ru: "Продвинутая формула от мигрени"
+                        },
+                        benefits: {
+                            en: ["Reduces headache frequency", "Natural ingredients", "Fast-acting"],
+                            es: ["Reduce la frecuencia de dolores", "Ingredientes naturales", "Acción rápida"],
+                            pt: ["Reduz frequência de dores", "Ingredientes naturais", "Ação rápida"],
+                            ru: ["Снижает частоту головных болей", "Натуральные ингредиенты", "Быстрое действие"]
+                        }
+                    }
+                ],
+                energy: [
+                    {
+                        name: {
+                            en: "EnergyBoost Max",
+                            es: "EnergyBoost Max",
+                            pt: "EnergyBoost Max",
+                            ru: "ЭнергиБуст Макс"
+                        },
+                        price: "$44.99",
+                        icon: "⚡",
+                        description: {
+                            en: "All-day energy support",
+                            es: "Soporte energético todo el día",
+                            pt: "Suporte energético o dia todo",
+                            ru: "Энергетическая поддержка на весь день"
+                        },
+                        benefits: {
+                            en: ["Sustained energy", "No crash", "Mental clarity"],
+                            es: ["Energía sostenida", "Sin bajones", "Claridad mental"],
+                            pt: ["Energia sustentada", "Sem queda", "Clareza mental"],
+                            ru: ["Устойчивая энергия", "Без спадов", "Ясность ума"]
+                        }
+                    }
+                ],
+                skin: [
+                    {
+                        name: {
+                            en: "Collagen Beauty",
+                            es: "Belleza Colágeno",
+                            pt: "Beleza Colágeno",
+                            ru: "Коллаген Красоты"
+                        },
+                        price: "$54.99",
+                        icon: "✨",
+                        description: {
+                            en: "Premium skin support",
+                            es: "Soporte premium para la piel",
+                            pt: "Suporte premium para a pele",
+                            ru: "Премиум поддержка кожи"
+                        },
+                        benefits: {
+                            en: ["Improves elasticity", "Hydrates skin", "Reduces wrinkles"],
+                            es: ["Mejora elasticidad", "Hidrata la piel", "Reduce arrugas"],
+                            pt: ["Melhora elasticidade", "Hidrata a pele", "Reduz rugas"],
+                            ru: ["Улучшает эластичность", "Увлажняет кожу", "Уменьшает морщины"]
+                        }
+                    }
+                ],
+
+                joints: [
+                          {
+                            name: {
+                              en: "JointFlex Pro",
+                              es: "JointFlex Pro",
+                              pt: "JointFlex Pro",
+                              ru: "ДжойнтФлекс Про"
+                            },
+                            price: "$39.99",
+                            icon: "🦴",
+                            description: {
+                              en: "Advanced support for joint mobility",
+                              es: "Soporte avanzado para la movilidad articular",
+                              pt: "Suporte avançado para mobilidade articular",
+                              ru: "Поддержка подвижности суставов"
+                            },
+                            benefits: {
+                              en: ["Reduces joint pain", "Improves flexibility", "Natural formula"],
+                              es: ["Reduce el dolor", "Mejora la flexibilidad", "Fórmula natural"],
+                              pt: ["Reduz a dor", "Melhora a flexibilidade", "Fórmula natural"],
+                              ru: ["Снижает боль", "Улучшает гибкость", "Натуральная формула"]
+                            }
+                          },
+                          {
+                            name: {
+                              en: "BoneStrong D3",
+                              es: "BoneStrong D3",
+                              pt: "BoneStrong D3",
+                              ru: "БонСтронг D3"
+                            },
+                            price: "$29.99",
+                            icon: "💪",
+                            description: {
+                              en: "Supports bone strength and density",
+                              es: "Apoya la fortaleza y densidad ósea",
+                              pt: "Suporta força e densidade óssea",
+                              ru: "Поддерживает плотность и силу костей"
+                            },
+                            benefits: {
+                              en: ["Vitamin D3 & Calcium", "Bone health", "Daily use"],
+                              es: ["Vitamina D3 y calcio", "Salud ósea", "Uso diario"],
+                              pt: ["Vitamina D3 e cálcio", "Saúde óssea", "Uso diário"],
+                              ru: ["Витамин D3 и кальций", "Здоровье костей", "Для ежедневного применения"]
+                            }
+                          },
+                          {
+                            name: {
+                              en: "FlexMove Gel",
+                              es: "FlexMove Gel",
+                              pt: "FlexMove Gel",
+                              ru: "ФлексМув Гель"
+                            },
+                            price: "$19.99",
+                            icon: "🧴",
+                            description: {
+                              en: "Topical relief for stiff joints",
+                              es: "Alivio tópico para articulaciones rígidas",
+                              pt: "Alívio tópico para articulações rígidas",
+                              ru: "Наружное средство от скованности суставов"
+                            },
+                            benefits: {
+                              en: ["Fast-acting", "Cooling effect", "Non-greasy"],
+                              es: ["Acción rápida", "Efecto refrescante", "No graso"],
+                              pt: ["Ação rápida", "Efeito refrescante", "Não oleoso"],
+                              ru: ["Быстрое действие", "Охлаждающий эффект", "Не оставляет жирных следов"]
+                            }
+                          }
+                        ],
+                        sleep: [
+                          {
+                            name: { en: "SleepCalm", es: "SleepCalm", pt: "SleepCalm", ru: "СлипКалм" },
+                            price: "$34.99",
+                            icon: "🌙",
+                            description: {
+                              en: "Natural sleep aid for restful nights",
+                              es: "Ayuda natural para dormir bien",
+                              pt: "Auxílio natural para dormir bem",
+                              ru: "Натуральное средство для спокойного сна"
+                            },
+                            benefits: {
+                              en: ["Fall asleep faster", "Stay asleep longer", "Wake up refreshed"],
+                              es: ["Dormirse más rápido", "Dormir profundamente", "Despertarse renovado"],
+                              pt: ["Adormecer rápido", "Sono profundo", "Acordar renovado"],
+                              ru: ["Быстрое засыпание", "Глубокий сон", "Бодрое пробуждение"]
+                            }
+                          },
+                          {
+                            name: { en: "CalmMind Gummies", es: "Gomitas CalmMind", pt: "CalmMind Gomas", ru: "КалмМайнд Гамми" },
+                            price: "$29.99",
+                            icon: "🍬",
+                            description: {
+                              en: "Tasty gummies to reduce stress",
+                              es: "Gomitas sabrosas para reducir el estrés",
+                              pt: "Gomas saborosas para reduzir o estresse",
+                              ru: "Вкусные жевательные витамины против стресса"
+                            },
+                            benefits: {
+                              en: ["Relaxes the mind", "Non-drowsy", "Vegan-friendly"],
+                              es: ["Relaja la mente", "Sin somnolencia", "Veganas"],
+                              pt: ["Relaxa a mente", "Sem sonolência", "Veganas"],
+                              ru: ["Успокаивает", "Без сонливости", "Подходят веганам"]
+                            }
+                          },
+                          {
+                            name: { en: "Melatonin Plus", es: "Melatonina Plus", pt: "Melatonina Plus", ru: "Мелатонин Плюс" },
+                            price: "$24.99",
+                            icon: "🕯️",
+                            description: {
+                              en: "Melatonin blend with herbs",
+                              es: "Mezcla de melatonina y hierbas",
+                              pt: "Mistura de melatonina e ervas",
+                              ru: "Смесь мелатонина и трав"
+                            },
+                            benefits: {
+                              en: ["Natural ingredients", "Supports deep sleep", "No addiction"],
+                              es: ["Ingredientes naturales", "Sueño profundo", "Sin adicción"],
+                              pt: ["Ingredientes naturais", "Sono profundo", "Sem vício"],
+                              ru: ["Натуральные компоненты", "Глубокий сон", "Не вызывает привыкания"]
+                            }
+                          }
+                        ],
+
+                        immunity: [
+                          {
+                            name: { en: "ImmuneShield", es: "ImmuneShield", pt: "ImmuneShield", ru: "ИммунЩит" },
+                            price: "$32.99",
+                            icon: "🛡️",
+                            description: {
+                              en: "Daily immune defense formula",
+                              es: "Fórmula diaria de defensa inmune",
+                              pt: "Fórmula diária de defesa imune",
+                              ru: "Формула ежедневной защиты иммунитета"
+                            },
+                            benefits: {
+                              en: ["Vitamin C & Zinc", "Year-round protection", "No fillers"],
+                              es: ["Vitamina C y Zinc", "Protección todo el año", "Sin aditivos"],
+                              pt: ["Vitamina C e Zinco", "Proteção o ano todo", "Sem aditivos"],
+                              ru: ["Витамин C и цинк", "Защита круглый год", "Без добавок"]
+                            }
+                          },
+                          {
+                            name: { en: "Elderberry Boost", es: "Refuerzo de Saúco", pt: "Reforço de Sabugueiro", ru: "Буст Бузины" },
+                            price: "$27.50",
+                            icon: "🫐",
+                            description: {
+                              en: "Powerful elderberry extract",
+                              es: "Extracto de saúco potente",
+                              pt: "Extrato de sabugueiro potente",
+                              ru: "Экстракт бузины для иммунитета"
+                            },
+                            benefits: {
+                              en: ["Antioxidant-rich", "Fights infections", "Tasty drops"],
+                              es: ["Rico en antioxidantes", "Combate infecciones", "Gotas sabrosas"],
+                              pt: ["Rico em antioxidantes", "Combate infecções", "Gotas saborosas"],
+                              ru: ["Антиоксиданты", "Борьба с инфекциями", "Вкусные капли"]
+                            }
+                          },
+                          {
+                            name: { en: "Defense Gummies", es: "Gomitas Defensa", pt: "Gomas Defesa", ru: "Жевательные Иммунки" },
+                            price: "$22.99",
+                            icon: "🍊",
+                            description: {
+                              en: "Chewable immune support for adults",
+                              es: "Soporte inmunológico masticable para adultos",
+                              pt: "Suporte imunológico mastigável para adultos",
+                              ru: "Жевательная поддержка иммунитета для взрослых"
+                            },
+                            benefits: {
+                              en: ["Easy to take", "Tastes great", "Supports white blood cells"],
+                              es: ["Fácil de tomar", "Sabor excelente", "Apoya células blancas"],
+                              pt: ["Fácil de tomar", "Sabor excelente", "Suporta células brancas"],
+                              ru: ["Удобно", "Вкусно", "Укрепляет лейкоциты"]
+                            }
+                          }
+                        ],
+                        heart: [
+                          {
+                            name: { en: "CardioCare", es: "CardioCare", pt: "CardioCare", ru: "КардиоКеа" },
+                            price: "$36.99",
+                            icon: "❤️",
+                            description: {
+                              en: "Comprehensive heart support formula",
+                              es: "Fórmula integral para el corazón",
+                              pt: "Fórmula completa para o coração",
+                              ru: "Комплексная поддержка сердца"
+                            },
+                            benefits: {
+                              en: ["Supports blood pressure", "Improves circulation", "Heart antioxidants"],
+                              es: ["Soporta la presión", "Mejora la circulación", "Antioxidantes cardíacos"],
+                              pt: ["Suporte à pressão", "Melhora a circulação", "Antioxidantes cardíacos"],
+                              ru: ["Нормализует давление", "Улучшает кровообращение", "Антиоксиданты для сердца"]
+                            }
+                          },
+                          {
+                            name: { en: "Omega 3 Gold", es: "Omega 3 Oro", pt: "Ômega 3 Ouro", ru: "Омега 3 Голд" },
+                            price: "$28.50",
+                            icon: "🐟",
+                            description: {
+                              en: "High-potency omega-3 supplement",
+                              es: "Suplemento potente de omega-3",
+                              pt: "Suplemento potente de ômega-3",
+                              ru: "Высококонцентрированный омега-3"
+                            },
+                            benefits: {
+                              en: ["Reduces inflammation", "Supports heart & brain", "Purified fish oil"],
+                              es: ["Reduce la inflamación", "Corazón y cerebro", "Aceite purificado"],
+                              pt: ["Reduz inflamação", "Coração e cérebro", "Óleo purificado"],
+                              ru: ["Снижает воспаление", "Поддержка сердца и мозга", "Очищенное масло"]
+                            }
+                          },
+                          {
+                            name: { en: "HeartBeat Monitor", es: "Monitor de Latidos", pt: "Monitor de Batimentos", ru: "Монитор Пульса" },
+                            price: "$59.99",
+                            icon: "📟",
+                            description: {
+                              en: "Track your heart rate and rhythm",
+                              es: "Monitorea tu ritmo cardíaco",
+                              pt: "Monitore seu ritmo cardíaco",
+                              ru: "Отслеживает пульс и ритм"
+                            },
+                            benefits: {
+                              en: ["Real-time tracking", "Portable", "Easy to use"],
+                              es: ["Seguimiento en tiempo real", "Portátil", "Fácil de usar"],
+                              pt: ["Monitoramento em tempo real", "Portátil", "Fácil de usar"],
+                              ru: ["Мониторинг в реальном времени", "Портативный", "Простой в использовании"]
+                            }
+                          }
+                        ],
+                        vision: [
+                          {
+                            name: { en: "Vision Plus", es: "Visión Plus", pt: "Visão Plus", ru: "Вижн Плюс" },
+                            price: "$35.00",
+                            icon: "👓",
+                            description: {
+                              en: "Daily supplement for eye health",
+                              es: "Suplemento diario para la vista",
+                              pt: "Suplemento diário para a visão",
+                              ru: "Ежедневная поддержка зрения"
+                            },
+                            benefits: {
+                              en: ["Lutein & Zeaxanthin", "Supports retina", "UV protection"],
+                              es: ["Luteína y zeaxantina", "Soporte para retina", "Protección UV"],
+                              pt: ["Luteína e zeaxantina", "Suporte à retina", "Proteção UV"],
+                              ru: ["Лютеин и зеаксантин", "Поддержка сетчатки", "Защита от УФ"]
+                            }
+                          },
+                          {
+                            name: { en: "EarClear Drops", es: "Gotas EarClear", pt: "Gotas EarClear", ru: "Капли ЭарКлир" },
+                            price: "$18.90",
+                            icon: "🦻",
+                            description: {
+                              en: "Gentle ear cleansing drops",
+                              es: "Gotas suaves para limpieza auditiva",
+                              pt: "Gotas suaves para limpar o ouvido",
+                              ru: "Мягкие капли для чистки ушей"
+                            },
+                            benefits: {
+                              en: ["Clears wax", "Reduces itch", "Non-irritating"],
+                              es: ["Elimina cerumen", "Reduce picor", "No irritante"],
+                              pt: ["Remove cera", "Reduz coceira", "Não irritante"],
+                              ru: ["Удаляет серу", "Устраняет зуд", "Не раздражает"]
+                            }
+                          },
+                          {
+                            name: { en: "EyeGuard Capsules", es: "Cápsulas EyeGuard", pt: "Cápsulas EyeGuard", ru: "АйГард Капсулы" },
+                            price: "$26.75",
+                            icon: "🧿",
+                            description: {
+                              en: "Nutritional capsules for tired eyes",
+                              es: "Cápsulas nutritivas para ojos cansados",
+                              pt: "Cápsulas nutritivas para olhos cansados",
+                              ru: "Капсулы для уставших глаз"
+                            },
+                            benefits: {
+                              en: ["Reduces dryness", "Improves focus", "Supports night vision"],
+                              es: ["Reduce la sequedad", "Mejora el enfoque", "Visión nocturna"],
+                              pt: ["Reduz o ressecamento", "Melhora o foco", "Visão noturna"],
+                              ru: ["Уменьшает сухость", "Улучшает фокусировку", "Ночное зрение"]
+                            }
+                          }
+                        ]
+            }
+        };
+
+        // Global variables
+        let currentLang = 'en';
+        let currentStep = 1;
+        let selectedCategory = '';
+        let userAnswers = {};
+
+        // Initialize when page loads
+        window.addEventListener('DOMContentLoaded', function() {
+            initializeApp();
+        });
+
+        function initializeApp() {
+            // Setup theme toggle
+            const themeToggle = document.getElementById('themeBtn');
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            
+            if (savedTheme === 'dark') {
+                document.documentElement.setAttribute('data-theme', 'dark');
+            }
+
+            themeToggle.addEventListener('click', toggleTheme);
+
+            // Setup language
+            const languageBtn = document.getElementById('languageBtn');
+            const savedLang = localStorage.getItem('language') || 'en';
+            currentLang = savedLang;
+
+            languageBtn.addEventListener('click', showLanguageModal);
+
+            // Setup language options
+            document.querySelectorAll('.language-option').forEach(option => {
+                option.addEventListener('click', function() {
+                    selectLanguage(this.dataset.lang);
+                });
+            });
+
+            // Modal click outside
+            document.getElementById('languageModal').addEventListener('click', function(e) {
+                if (e.target.classList.contains('modal')) {
+                    e.target.classList.remove('active');
+                }
+            });
+
+            // Initial setup
+            updateLanguage();
+            displayCategories();
+            updateSelectedLanguage();
+        }
+
+        function toggleTheme() {
+            const currentTheme = localStorage.getItem('theme') || 'light';
+            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+            
+            if (newTheme === 'dark') {
+                document.documentElement.setAttribute('data-theme', 'dark');
+            } else {
+                document.documentElement.removeAttribute('data-theme');
+            }
+            
+            localStorage.setItem('theme', newTheme);
+        }
+
+        function showLanguageModal() {
+            document.getElementById('languageModal').classList.add('active');
+        }
+
+        function selectLanguage(lang) {
+            currentLang = lang;
+            localStorage.setItem('language', lang);
+            updateLanguage();
+            updateSelectedLanguage();
+            document.getElementById('languageModal').classList.remove('active');
+            
+            if (currentStep === 1) {
+                displayCategories();
+            } else if (currentStep === 2) {
+                displayQuestions();
+            }
+        }
+
+        function updateSelectedLanguage() {
+            document.querySelectorAll('.language-option').forEach(option => {
+                if (option.dataset.lang === currentLang) {
+                    option.classList.add('selected');
+                } else {
+                    option.classList.remove('selected');
+                }
+            });
+        }
+
+        function updateLanguage() {
+            const trans = appData.translations[currentLang];
+            
+            document.getElementById('logoText').textContent = trans.appName;
+            document.getElementById('welcomeTitle').textContent = trans.welcome.title;
+            document.getElementById('welcomeSubtitle').textContent = trans.welcome.subtitle;
+            document.getElementById('categoryTitle').textContent = trans.categoryTitle;
+            
+            document.getElementById('navHome').textContent = trans.nav.home;
+            document.getElementById('navHistory').textContent = trans.nav.history;
+            document.getElementById('navFavorites').textContent = trans.nav.favorites;
+            document.getElementById('navProfile').textContent = trans.nav.profile;
+            document.getElementById('backBtn').textContent = trans.nav.back;
+            document.getElementById('continueBtn').textContent = trans.nav.continue;
+            document.getElementById('startOverBtn').textContent = trans.nav.startOver;
+            document.getElementById('resultsTitle').textContent = trans.results.title;
+            document.getElementById('resultsSubtitle').textContent = trans.results.subtitle;
+            // document.getElementById('startOverBtn').textContent = trans.results.startOver;
+
+        }
+
+       function displayCategories() {
+    const grid = document.getElementById('categoryGrid');
+    grid.innerHTML = '';
+
+    const categories = [
+        'head', 'energy', 'skin',
+        'joints', 'sleep', 'immunity', 'heart', 'vision'
+    ];
+
+    const icons = {
+        head: '🧠',
+        energy: '⚡',
+        skin: '✨',
+        joints: '🦴',
+        sleep: '🌙',
+        immunity: '🛡️',
+        heart: '❤️',
+        vision: '👁️'
+    };
+
+    categories.forEach(cat => {
+        const card = document.createElement('div');
+        card.className = 'category-card';
+        card.onclick = () => selectCategory(cat);
+
+        card.innerHTML = `
+            <div class="category-icon">${icons[cat]}</div>
+            <div class="category-name">${appData.categories[currentLang][cat]}</div>
+        `;
+
+        grid.appendChild(card);
+    });
+}
+
+
+        function selectCategory(category) {
+            selectedCategory = category;
+            userAnswers = {};
+            showStep(2);
+            displayQuestions();
+        }
+
+        function displayQuestions() {
+            const container = document.getElementById('questionsContainer');
+            container.innerHTML = '';
+            
+            const questions = appData.questions[selectedCategory];
+            
+            questions.forEach((question, index) => {
+                const questionCard = document.createElement('div');
+                questionCard.className = 'question-card';
+                
+                questionCard.innerHTML = `
+                    <div class="question-number">Question ${index + 1} of ${questions.length}</div>
+                    <h3 class="question-title">${question[currentLang]}</h3>
+                    <div class="options-list" id="options-${index}"></div>
+                `;
+                
+                const optionsList = questionCard.querySelector(`#options-${index}`);
+                
+                question.options[currentLang].forEach((option, optIndex) => {
+                    const optionItem = document.createElement('div');
+                    optionItem.className = 'option-item';
+                    optionItem.dataset.question = index;
+                    optionItem.dataset.value = option;
+                    
+                    optionItem.innerHTML = `
+                        <div class="option-radio"></div>
+                        <span>${option}</span>
+                    `;
+                    
+                    optionItem.addEventListener('click', function() {
+                        document.querySelectorAll(`[data-question="${index}"]`).forEach(opt => {
+                            opt.classList.remove('selected');
+                        });
+                        this.classList.add('selected');
+                        userAnswers[`q${index}`] = option;
+                    });
+                    
+                    optionsList.appendChild(optionItem);
+                });
+                
+                container.appendChild(questionCard);
+            });
+            
+            document.getElementById('progressContainer').style.display = 'block';
+            updateProgress(2);
+        }
+
+        function processAnswers() {
+            const questions = appData.questions[selectedCategory];
+            let allAnswered = true;
+            
+            questions.forEach((question, index) => {
+                if (!userAnswers[`q${index}`]) {
+                    allAnswered = false;
+                }
+            });
+            
+            if (!allAnswered) {
+                alert('Please answer all questions to continue');
+                return;
+            }
+            
+            showStep(3);
+            displayRecommendations();
+        }
+
+        function displayRecommendations() {
+            const container = document.getElementById('productsContainer');
+            container.innerHTML = '';
+            
+            const products = appData.products[selectedCategory];
+            
+            products.forEach(product => {
+                const productCard = document.createElement('div');
+                productCard.className = 'product-card';
+                
+                const benefitsHTML = product.benefits[currentLang]
+                    .map(benefit => `
+                        <li class="benefit-item">
+                            <span class="benefit-icon">✓</span>
+                            <span>${benefit}</span>
+                        </li>
+                    `).join('');
+                
+                productCard.innerHTML = `
+                    <div class="match-badge">92% Match</div>
+                    <div class="product-header">
+                        <div class="product-icon">${product.icon}</div>
+                        <div class="product-info">
+                            <h3 class="product-name">${product.name[currentLang]}</h3>
+                            <div class="product-price">${product.price}</div>
+                        </div>
+                    </div>
+                    <div class="product-body">
+                        <p class="product-description">${product.description[currentLang]}</p>
+                        <h4 class="benefits-title">Key Benefits:</h4>
+                        <ul class="benefits-list">${benefitsHTML}</ul>
+                        <button class="btn btn-primary" onclick="trackPurchase('${product.name.en}')">View Details</button>
+                    </div>
+                `;
+                
+                container.appendChild(productCard);
+            });
+            
+            updateProgress(3);
+        }
+
+        function showStep(step) {
+            currentStep = step;
+            
+            document.querySelectorAll('.step-container').forEach(container => {
+                container.classList.remove('active');
+            });
+            
+            document.getElementById(`step${step}`).classList.add('active');
+            
+            if (step === 1) {
+                document.getElementById('progressContainer').style.display = 'none';
+            }
+        }
+
+        function updateProgress(step) {
+            const progress = (step / 3) * 100;
+            document.getElementById('progressBar').style.width = `${progress}%`;
+            
+            document.querySelectorAll('.progress-step').forEach((el, index) => {
+                if (index < step) {
+                    el.classList.add('active');
+                } else {
+                    el.classList.remove('active');
+                }
+            });
+        }
+
+        function goBack() {
+            if (currentStep > 1) {
+                showStep(currentStep - 1);
+                if (currentStep === 2) {
+                    updateProgress(2);
+                }
+            }
+        }
+
+        function startOver() {
+            selectedCategory = '';
+            userAnswers = {};
+            showStep(1);
+        }
+
+        function trackPurchase(productName) {
+            console.log('Product clicked:', productName);
+            alert('Redirecting to product details...');
+        }
+
+        function showTab(tab) {
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            event.target.closest('.nav-item').classList.add('active');
+            
+            console.log('Showing tab:', tab);
+        }
+    </script>
+    <script>
+// Register Service Worker
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/sw.js')
+      .then(registration => console.log('SW registered'))
+      .catch(err => console.log('SW registration failed'));
+  });
+}
+
+// PWA Install Prompt
+let deferredPrompt;
+window.addEventListener('beforeinstallprompt', (e) => {
+  e.preventDefault();
+  deferredPrompt = e;
+});
+</script>
+</body>
+</html>
