@@ -193,6 +193,7 @@
 
         .nav-icon {
             font-size: 24px;
+            color: var(--primary);
         }
 
         .material-icons {
@@ -225,6 +226,7 @@
             cursor: pointer;
             transition: all 0.3s ease;
             font-size: 20px;
+            color: var(--primary);
         }
 
         .language-button:hover, .theme-button:hover {
@@ -284,6 +286,10 @@
             display: flex;
             align-items: center;
             gap: var(--spacing-sm);
+        }
+
+        .language-option .material-icons {
+            color: var(--primary);
         }
 
         .language-option:hover {
@@ -543,12 +549,12 @@
         .product-icon {
             width: 80px;
             height: 80px;
-            background-color: white;
             border-radius: var(--radius-md);
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 48px;
+            color: white;
             box-shadow: var(--shadow-sm);
         }
 
@@ -1783,13 +1789,24 @@
         vision: 'visibility'
     };
 
+    const categoryColors = {
+        head: '#9C27B0',
+        energy: '#FF9800',
+        skin: '#E91E63',
+        joints: '#2196F3',
+        sleep: '#3F51B5',
+        immunity: '#4CAF50',
+        heart: '#F44336',
+        vision: '#FFC107'
+    };
+
     categories.forEach(cat => {
         const card = document.createElement('div');
         card.className = 'category-card';
         card.onclick = () => selectCategory(cat);
 
         card.innerHTML = `
-            <div class="category-icon"><span class="material-icons">${icons[cat]}</span></div>
+            <div class="category-icon" style="color:${categoryColors[cat]}"><span class="material-icons">${icons[cat]}</span></div>
             <div class="category-name">${appData.categories[currentLang][cat]}</div>
         `;
 
@@ -1895,10 +1912,11 @@
                         </li>
                     `).join('');
                 
+                const color = categoryColors[selectedCategory];
                 productCard.innerHTML = `
                     <div class="match-badge">92% Match</div>
                     <div class="product-header">
-                        <div class="product-icon"><span class="material-icons">${product.icon}</span></div>
+                        <div class="product-icon" style="background-color:${color}"><span class="material-icons">${product.icon}</span></div>
                         <div class="product-info">
                             <h3 class="product-name">${product.name[currentLang]}</h3>
                             <div class="product-price">${product.price}</div>
