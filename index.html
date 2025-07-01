@@ -374,6 +374,11 @@
             opacity: 0.9;
         }
 
+        .intro-text {
+            font-size: var(--font-size-base);
+            margin: var(--spacing-lg) 0;
+        }
+
         /* Category Grid */
         .category-grid {
             display: grid;
@@ -836,6 +841,7 @@
                 <div class="welcome-card">
                     <h1 class="welcome-title" id="welcomeTitle">Welcome to Your Health Assistant</h1>
                     <p class="welcome-subtitle" id="welcomeSubtitle">Let's find the right solution for you</p>
+                    <p class="intro-text" id="introText">As we age, our bodies require more attention: metabolism slows, joints lose flexibility and immunity becomes more sensitive. After 35, it's important not just to treat symptoms but to act ahead. This site is your personal health assistant. We provide personalized recommendations based on your needs and a scientific approach. Here you will find natural solutions for sleep, joints, heart, immunity and more. Start caring for yourself today so you can feel better, more energetic and confident tomorrow.</p>
                 </div>
                 
                 <h2 class="question-title" id="categoryTitle">What would you like help with?</h2>
@@ -945,7 +951,8 @@
                         title: "Your Personalized Recommendations",
                         subtitle: "AI-powered recommendations based on your responses"
                     },
-                    aiProcessing: "Analyzing your answers with AI..."
+                    aiProcessing: "Analyzing your answers with AI...",
+                    intro: "As we age, our bodies require more attention: metabolism slows, joints lose flexibility and immunity becomes more sensitive. After 35, it's important not just to treat symptoms but to act ahead. This site is your personal health assistant. We provide personalized recommendations based on your needs and a scientific approach. Here you will find natural solutions for sleep, joints, heart, immunity and more. Start caring for yourself today so you can feel better, more energetic and confident tomorrow."
                 },
                 es: {
                     appName: "Salud",
@@ -967,7 +974,8 @@
                         title: "Tus Recomendaciones Personalizadas",
                         subtitle: "Recomendaciones impulsadas por IA según tus respuestas"
                     },
-                    aiProcessing: "Analizando tus respuestas con IA..."
+                    aiProcessing: "Analizando tus respuestas con IA...",
+                    intro: "A medida que envejecemos, nuestro organismo necesita más atención: el metabolismo se ralentiza, las articulaciones pierden flexibilidad y la inmunidad se vuelve más sensible. Después de los 35 años es importante no solo eliminar los síntomas, sino actuar con anticipación. Este sitio es tu asistente personal de salud. Seleccionamos recomendaciones personalizadas basadas en tus necesidades y un enfoque científico. Aquí encontrarás soluciones naturales para el sueño, las articulaciones, el corazón, la inmunidad y mucho más. Comienza a cuidarte hoy para que mañana te sientas mejor, más enérgico y seguro."
                 },
                 pt: {
                     appName: "Saúde",
@@ -989,7 +997,8 @@
                         title: "Suas Recomendações Personalizadas",
                         subtitle: "Recomendações geradas por IA com base nas suas respostas"
                     },
-                    aiProcessing: "Analisando suas respostas com IA..."
+                    aiProcessing: "Analisando suas respostas com IA...",
+                    intro: "Com o passar do tempo, nosso corpo precisa de mais cuidados: o metabolismo desacelera, as articulações perdem flexibilidade e a imunidade fica mais sensível. Depois dos 35 anos é importante não apenas tratar os sintomas, mas agir de forma preventiva. Este site é seu assistente pessoal de saúde. Selecionamos recomendações personalizadas com base nas suas necessidades e em uma abordagem científica. Aqui você encontrará soluções naturais para sono, articulações, coração, imunidade e muito mais. Comece a cuidar de si hoje para amanhã se sentir melhor, mais disposto e confiante."
                 },
                 ru: {
                     appName: "Здоровье",
@@ -1011,7 +1020,8 @@
                         title: "Ваши персональные рекомендации",
                         subtitle: "Рекомендации от ИИ на основе ваших ответов"
                     },
-                    aiProcessing: "Анализируем ваши ответы с помощью ИИ..."
+                    aiProcessing: "Анализируем ваши ответы с помощью ИИ...",
+                    intro: "С возрастом наш организм требует больше внимания: обмен веществ замедляется, суставы теряют гибкость, иммунитет становится чувствительнее. Уже после 35 лет важно не просто устранять симптомы, а действовать на опережение. Этот сайт — ваш личный помощник по здоровью. Мы подбираем персональные рекомендации на основе ваших потребностей и научного подхода. Здесь вы найдёте натуральные решения для сна, суставов, сердца, иммунитета и многого другого. Начните заботиться о себе сегодня, чтобы завтра чувствовать себя лучше, бодрее и увереннее."
                     },
 
             },
@@ -1730,6 +1740,7 @@
             document.getElementById('logoText').textContent = trans.appName;
             document.getElementById('welcomeTitle').textContent = trans.welcome.title;
             document.getElementById('welcomeSubtitle').textContent = trans.welcome.subtitle;
+            document.getElementById('introText').textContent = trans.intro;
             document.getElementById('categoryTitle').textContent = trans.categoryTitle;
             
             document.getElementById('navHome').textContent = trans.nav.home;
