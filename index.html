@@ -12,6 +12,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     
     <style>
         :root {
@@ -192,6 +193,12 @@
 
         .nav-icon {
             font-size: 24px;
+        }
+
+        .material-icons {
+            font-size: inherit;
+            line-height: 1;
+            vertical-align: middle;
         }
 
         .nav-label {
@@ -803,12 +810,12 @@
         <header class="app-header">
             <div class="header-content">
                 <div class="app-logo">
-                    <div class="logo-icon">💊</div>
+                    <div class="logo-icon"><span class="material-icons">local_pharmacy</span></div>
                     <div class="logo-text" id="logoText">Health</div>
                 </div>
                 <div class="settings-menu">
-                    <button class="language-button" id="languageBtn" aria-label="Change language">🌐</button>
-                    <button class="theme-button" id="themeBtn" aria-label="Toggle theme">🌓</button>
+                    <button class="language-button" id="languageBtn" aria-label="Change language"><span class="material-icons">language</span></button>
+                    <button class="theme-button" id="themeBtn" aria-label="Toggle theme"><span class="material-icons">dark_mode</span></button>
                 </div>
             </div>
         </header>
@@ -874,19 +881,19 @@
         <nav class="bottom-nav">
             <div class="bottom-nav-content">
                 <div class="nav-item active" onclick="showTab('home')">
-                    <span class="nav-icon">🏠</span>
+                    <span class="material-icons nav-icon">home</span>
                     <span class="nav-label" id="navHome">Home</span>
                 </div>
                 <div class="nav-item" onclick="showTab('history')">
-                    <span class="nav-icon">📋</span>
+                    <span class="material-icons nav-icon">history</span>
                     <span class="nav-label" id="navHistory">History</span>
                 </div>
                 <div class="nav-item" onclick="showTab('favorites')">
-                    <span class="nav-icon">❤️</span>
+                    <span class="material-icons nav-icon">favorite</span>
                     <span class="nav-label" id="navFavorites">Favorites</span>
                 </div>
                 <div class="nav-item" onclick="showTab('profile')">
-                    <span class="nav-icon">👤</span>
+                    <span class="material-icons nav-icon">person</span>
                     <span class="nav-label" id="navProfile">Profile</span>
                 </div>
             </div>
@@ -898,20 +905,19 @@
                 <h3 class="modal-title" id="languageModalTitle">Select Language</h3>
                 <div class="language-list">
                     <div class="language-option" data-lang="en">
-                        <span>🇺🇸</span>
+                        <span class="material-icons">language</span>
                         <span>English</span>
                     </div>
                     <div class="language-option" data-lang="es">
-                        <span>🇪🇸</span>
+                        <span class="material-icons">language</span>
                         <span>Español</span>
                     </div>
                     <div class="language-option" data-lang="pt">
-                        <span>🇧🇷</span>
+                        <span class="material-icons">language</span>
                         <span>Português</span>
                     </div>
                     <div class="language-option" data-lang="ru">
-                        <!-- <span>🇷🇺</span> -->
-                        <span>  </span>
+                        <span class="material-icons">language</span>
                         <span>Русский</span>
                     </div>
                 </div>
@@ -1296,7 +1302,7 @@
                             ru: "МиграРелиф Про"
                         },
                         price: "$49.99",
-                        icon: "💊",
+                        icon: "medication",
                         description: {
                             en: "Advanced migraine support formula",
                             es: "Fórmula avanzada para migrañas",
@@ -1320,7 +1326,7 @@
                             ru: "ЭнергиБуст Макс"
                         },
                         price: "$44.99",
-                        icon: "⚡",
+                        icon: "bolt",
                         description: {
                             en: "All-day energy support",
                             es: "Soporte energético todo el día",
@@ -1344,7 +1350,7 @@
                             ru: "Коллаген Красоты"
                         },
                         price: "$54.99",
-                        icon: "✨",
+                        icon: "spa",
                         description: {
                             en: "Premium skin support",
                             es: "Soporte premium para la piel",
@@ -1369,7 +1375,7 @@
                               ru: "ДжойнтФлекс Про"
                             },
                             price: "$39.99",
-                            icon: "🦴",
+                              icon: "accessibility_new",
                             description: {
                               en: "Advanced support for joint mobility",
                               es: "Soporte avanzado para la movilidad articular",
@@ -1391,7 +1397,7 @@
                               ru: "БонСтронг D3"
                             },
                             price: "$29.99",
-                            icon: "💪",
+                              icon: "fitness_center",
                             description: {
                               en: "Supports bone strength and density",
                               es: "Apoya la fortaleza y densidad ósea",
@@ -1413,7 +1419,7 @@
                               ru: "ФлексМув Гель"
                             },
                             price: "$19.99",
-                            icon: "🧴",
+                              icon: "healing",
                             description: {
                               en: "Topical relief for stiff joints",
                               es: "Alivio tópico para articulaciones rígidas",
@@ -1432,7 +1438,7 @@
                           {
                             name: { en: "SleepCalm", es: "SleepCalm", pt: "SleepCalm", ru: "СлипКалм" },
                             price: "$34.99",
-                            icon: "🌙",
+                            icon: "bedtime",
                             description: {
                               en: "Natural sleep aid for restful nights",
                               es: "Ayuda natural para dormir bien",
@@ -1449,7 +1455,7 @@
                           {
                             name: { en: "CalmMind Gummies", es: "Gomitas CalmMind", pt: "CalmMind Gomas", ru: "КалмМайнд Гамми" },
                             price: "$29.99",
-                            icon: "🍬",
+                            icon: "self_improvement",
                             description: {
                               en: "Tasty gummies to reduce stress",
                               es: "Gomitas sabrosas para reducir el estrés",
@@ -1466,7 +1472,7 @@
                           {
                             name: { en: "Melatonin Plus", es: "Melatonina Plus", pt: "Melatonina Plus", ru: "Мелатонин Плюс" },
                             price: "$24.99",
-                            icon: "🕯️",
+                            icon: "nights_stay",
                             description: {
                               en: "Melatonin blend with herbs",
                               es: "Mezcla de melatonina y hierbas",
@@ -1486,7 +1492,7 @@
                           {
                             name: { en: "ImmuneShield", es: "ImmuneShield", pt: "ImmuneShield", ru: "ИммунЩит" },
                             price: "$32.99",
-                            icon: "🛡️",
+                            icon: "health_and_safety",
                             description: {
                               en: "Daily immune defense formula",
                               es: "Fórmula diaria de defensa inmune",
@@ -1503,7 +1509,7 @@
                           {
                             name: { en: "Elderberry Boost", es: "Refuerzo de Saúco", pt: "Reforço de Sabugueiro", ru: "Буст Бузины" },
                             price: "$27.50",
-                            icon: "🫐",
+                            icon: "science",
                             description: {
                               en: "Powerful elderberry extract",
                               es: "Extracto de saúco potente",
@@ -1520,7 +1526,7 @@
                           {
                             name: { en: "Defense Gummies", es: "Gomitas Defensa", pt: "Gomas Defesa", ru: "Жевательные Иммунки" },
                             price: "$22.99",
-                            icon: "🍊",
+                            icon: "medical_services",
                             description: {
                               en: "Chewable immune support for adults",
                               es: "Soporte inmunológico masticable para adultos",
@@ -1539,7 +1545,7 @@
                           {
                             name: { en: "CardioCare", es: "CardioCare", pt: "CardioCare", ru: "КардиоКеа" },
                             price: "$36.99",
-                            icon: "❤️",
+                            icon: "favorite",
                             description: {
                               en: "Comprehensive heart support formula",
                               es: "Fórmula integral para el corazón",
@@ -1556,7 +1562,7 @@
                           {
                             name: { en: "Omega 3 Gold", es: "Omega 3 Oro", pt: "Ômega 3 Ouro", ru: "Омега 3 Голд" },
                             price: "$28.50",
-                            icon: "🐟",
+                            icon: "opacity",
                             description: {
                               en: "High-potency omega-3 supplement",
                               es: "Suplemento potente de omega-3",
@@ -1573,7 +1579,7 @@
                           {
                             name: { en: "HeartBeat Monitor", es: "Monitor de Latidos", pt: "Monitor de Batimentos", ru: "Монитор Пульса" },
                             price: "$59.99",
-                            icon: "📟",
+                            icon: "monitor_heart",
                             description: {
                               en: "Track your heart rate and rhythm",
                               es: "Monitorea tu ritmo cardíaco",
@@ -1592,7 +1598,7 @@
                           {
                             name: { en: "Vision Plus", es: "Visión Plus", pt: "Visão Plus", ru: "Вижн Плюс" },
                             price: "$35.00",
-                            icon: "👓",
+                            icon: "visibility",
                             description: {
                               en: "Daily supplement for eye health",
                               es: "Suplemento diario para la vista",
@@ -1609,7 +1615,7 @@
                           {
                             name: { en: "EarClear Drops", es: "Gotas EarClear", pt: "Gotas EarClear", ru: "Капли ЭарКлир" },
                             price: "$18.90",
-                            icon: "🦻",
+                            icon: "hearing",
                             description: {
                               en: "Gentle ear cleansing drops",
                               es: "Gotas suaves para limpieza auditiva",
@@ -1626,7 +1632,7 @@
                           {
                             name: { en: "EyeGuard Capsules", es: "Cápsulas EyeGuard", pt: "Cápsulas EyeGuard", ru: "АйГард Капсулы" },
                             price: "$26.75",
-                            icon: "🧿",
+                            icon: "visibility_off",
                             description: {
                               en: "Nutritional capsules for tired eyes",
                               es: "Cápsulas nutritivas para ojos cansados",
@@ -1767,14 +1773,14 @@
     ];
 
     const icons = {
-        head: '🧠',
-        energy: '⚡',
-        skin: '✨',
-        joints: '🦴',
-        sleep: '🌙',
-        immunity: '🛡️',
-        heart: '❤️',
-        vision: '👁️'
+        head: 'psychology',
+        energy: 'bolt',
+        skin: 'spa',
+        joints: 'accessibility',
+        sleep: 'bedtime',
+        immunity: 'health_and_safety',
+        heart: 'favorite',
+        vision: 'visibility'
     };
 
     categories.forEach(cat => {
@@ -1783,7 +1789,7 @@
         card.onclick = () => selectCategory(cat);
 
         card.innerHTML = `
-            <div class="category-icon">${icons[cat]}</div>
+            <div class="category-icon"><span class="material-icons">${icons[cat]}</span></div>
             <div class="category-name">${appData.categories[currentLang][cat]}</div>
         `;
 
@@ -1892,7 +1898,7 @@
                 productCard.innerHTML = `
                     <div class="match-badge">92% Match</div>
                     <div class="product-header">
-                        <div class="product-icon">${product.icon}</div>
+                        <div class="product-icon"><span class="material-icons">${product.icon}</span></div>
                         <div class="product-info">
                             <h3 class="product-name">${product.name[currentLang]}</h3>
                             <div class="product-price">${product.price}</div>
