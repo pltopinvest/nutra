@@ -12,6 +12,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     
     <style>
         :root {
@@ -125,14 +126,14 @@
         }
 
         .logo-icon {
-            width: 40px;
-            height: 40px;
+            width: 56px;
+            height: 56px;
             background: linear-gradient(135deg, var(--primary), var(--secondary));
-            border-radius: 12px;
+            border-radius: 16px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 24px;
+            font-size: 32px;
             color: white;
         }
 
@@ -191,7 +192,14 @@
         }
 
         .nav-icon {
-            font-size: 24px;
+            font-size: 28px;
+            color: var(--primary);
+        }
+
+        .material-icons {
+            font-size: inherit;
+            line-height: 1;
+            vertical-align: middle;
         }
 
         .nav-label {
@@ -206,7 +214,7 @@
             align-items: center;
         }
 
-        .language-button, .theme-button {
+        .language-button {
             width: 44px;
             height: 44px;
             border-radius: var(--radius-sm);
@@ -218,11 +226,59 @@
             cursor: pointer;
             transition: all 0.3s ease;
             font-size: 20px;
+            color: var(--primary);
         }
 
-        .language-button:hover, .theme-button:hover {
+        .language-button:hover {
             background-color: var(--bg-tertiary);
             transform: scale(1.05);
+        }
+
+        .theme-switch {
+            position: relative;
+            width: 60px;
+            height: 32px;
+        }
+
+        .theme-switch input {
+            display: none;
+        }
+
+        .theme-switch label {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background-color: var(--bg-secondary);
+            border-radius: 16px;
+            width: 100%;
+            height: 100%;
+            padding: 0 6px;
+            box-sizing: border-box;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .theme-switch .switch-icon {
+            font-size: 24px;
+            color: var(--text-tertiary);
+            z-index: 1;
+        }
+        .theme-switch .sun { color: #FFC107; }
+        .theme-switch .moon { color: var(--text-tertiary); }
+
+        .theme-switch .switch-thumb {
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background-color: var(--primary);
+            transition: transform 0.3s ease;
+        }
+
+        .theme-switch input:checked + label .switch-thumb {
+            transform: translateX(28px);
         }
 
         /* Language Modal */
@@ -277,6 +333,11 @@
             display: flex;
             align-items: center;
             gap: var(--spacing-sm);
+        }
+
+        .language-option .material-icons {
+            color: var(--primary);
+            font-size: 28px;
         }
 
         .language-option:hover {
@@ -374,6 +435,11 @@
             opacity: 0.9;
         }
 
+        .intro-text {
+            font-size: var(--font-size-base);
+            margin: var(--spacing-lg) 0;
+        }
+
         /* Category Grid */
         .category-grid {
             display: grid;
@@ -395,7 +461,7 @@
             flex-direction: column;
             align-items: center;
             gap: var(--spacing-sm);
-            min-height: 150px;
+            min-height: 170px;
             justify-content: center;
         }
 
@@ -410,8 +476,20 @@
         }
 
         .category-icon {
+            overflow: hidden;
+            border-radius: var(--radius-md);
+            width: 72px;
+            height: 72px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .category-icon img, .category-icon svg {
+            width: 100%;
+            height: 100%;
+        }
+        .category-icon .material-icons {
             font-size: 48px;
-            line-height: 1;
         }
 
         .category-name {
@@ -512,6 +590,7 @@
             box-shadow: var(--shadow-md);
             transition: all 0.3s ease;
             position: relative;
+            animation: fadeInUp 0.5s ease;
         }
 
         .product-card:hover {
@@ -528,14 +607,14 @@
         }
 
         .product-icon {
-            width: 80px;
-            height: 80px;
-            background-color: white;
+            width: 100px;
+            height: 100px;
             border-radius: var(--radius-md);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 48px;
+            font-size: 64px;
+            color: white;
             box-shadow: var(--shadow-sm);
         }
 
@@ -727,8 +806,8 @@
         }
 
         .spinner {
-            width: 40px;
-            height: 40px;
+            width: 60px;
+            height: 60px;
             border: 4px solid var(--bg-tertiary);
             border-top-color: var(--primary);
             border-radius: 50%;
@@ -737,6 +816,46 @@
 
         @keyframes spin {
             to { transform: rotate(360deg); }
+        }
+
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .loading-overlay.active {
+            display: flex;
+        }
+
+        .loading-text {
+            margin-top: var(--spacing-md);
+            font-size: var(--font-size-lg);
+            color: white;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         /* Focus styles */
@@ -757,12 +876,19 @@
         <header class="app-header">
             <div class="header-content">
                 <div class="app-logo">
-                    <div class="logo-icon">💊</div>
+                    <div class="logo-icon"><span class="material-icons">local_pharmacy</span></div>
                     <div class="logo-text" id="logoText">Health</div>
                 </div>
                 <div class="settings-menu">
-                    <button class="language-button" id="languageBtn" aria-label="Change language">🌐</button>
-                    <button class="theme-button" id="themeBtn" aria-label="Toggle theme">🌓</button>
+                    <button class="language-button" id="languageBtn" aria-label="Change language"><span class="material-icons">language</span></button>
+                    <div class="theme-switch">
+                        <input type="checkbox" id="themeToggle" aria-label="Toggle theme">
+                        <label for="themeToggle">
+                            <span class="material-icons switch-icon sun">light_mode</span>
+                            <span class="material-icons switch-icon moon">dark_mode</span>
+                            <span class="switch-thumb"></span>
+                        </label>
+                    </div>
                 </div>
             </div>
         </header>
@@ -795,6 +921,7 @@
                 <div class="welcome-card">
                     <h1 class="welcome-title" id="welcomeTitle">Welcome to Your Health Assistant</h1>
                     <p class="welcome-subtitle" id="welcomeSubtitle">Let's find the right solution for you</p>
+                    <p class="intro-text" id="introText">As men and women age, our bodies require more attention: metabolism slows, joints lose flexibility and immunity becomes more sensitive. After 35, it's important not just to treat symptoms but to act ahead. This site is your personal health assistant. We provide personalized recommendations based on your needs and a scientific approach. Here you will find natural solutions for sleep, joints, heart, immunity and more. Start caring for yourself today so you can feel better, more energetic and confident tomorrow.</p>
                 </div>
                 
                 <h2 class="question-title" id="categoryTitle">What would you like help with?</h2>
@@ -826,20 +953,20 @@
         <!-- Bottom Navigation -->
         <nav class="bottom-nav">
             <div class="bottom-nav-content">
-                <div class="nav-item active" onclick="showTab('home')">
-                    <span class="nav-icon">🏠</span>
+                <div class="nav-item active" onclick="showTab('home', event)">
+                    <span class="material-icons nav-icon">home</span>
                     <span class="nav-label" id="navHome">Home</span>
                 </div>
-                <div class="nav-item" onclick="showTab('history')">
-                    <span class="nav-icon">📋</span>
+                <div class="nav-item" onclick="showTab('history', event)">
+                    <span class="material-icons nav-icon">history</span>
                     <span class="nav-label" id="navHistory">History</span>
                 </div>
-                <div class="nav-item" onclick="showTab('favorites')">
-                    <span class="nav-icon">❤️</span>
+                <div class="nav-item" onclick="showTab('favorites', event)">
+                    <span class="material-icons nav-icon">favorite</span>
                     <span class="nav-label" id="navFavorites">Favorites</span>
                 </div>
-                <div class="nav-item" onclick="showTab('profile')">
-                    <span class="nav-icon">👤</span>
+                <div class="nav-item" onclick="showTab('profile', event)">
+                    <span class="material-icons nav-icon">person</span>
                     <span class="nav-label" id="navProfile">Profile</span>
                 </div>
             </div>
@@ -851,24 +978,31 @@
                 <h3 class="modal-title" id="languageModalTitle">Select Language</h3>
                 <div class="language-list">
                     <div class="language-option" data-lang="en">
-                        <span>🇺🇸</span>
+                        <span class="material-icons">language</span>
                         <span>English</span>
                     </div>
                     <div class="language-option" data-lang="es">
-                        <span>🇪🇸</span>
+                        <span class="material-icons">language</span>
                         <span>Español</span>
                     </div>
                     <div class="language-option" data-lang="pt">
-                        <span>🇧🇷</span>
+                        <span class="material-icons">language</span>
                         <span>Português</span>
                     </div>
                     <div class="language-option" data-lang="ru">
-                        <!-- <span>🇷🇺</span> -->
-                        <span>  </span>
+                        <span class="material-icons">language</span>
                         <span>Русский</span>
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
+
+    <!-- AI Processing Overlay -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loading">
+            <div class="spinner"></div>
+            <p class="loading-text" id="aiStatus">Analyzing your answers with AI...</p>
         </div>
     </div>
 
@@ -885,7 +1019,7 @@
                     categoryTitle: "What would you like help with?",
                     nav: {
                         home: "Home",
-                        history: "History", 
+                        history: "History",
                         favorites: "Favorites",
                         profile: "Profile",
                         back: "Back",
@@ -894,9 +1028,10 @@
                     },
                     results: {
                         title: "Your Personalized Recommendations",
-                        subtitle: "Based on your responses"
-                    }
-
+                        subtitle: "AI-powered recommendations based on your responses"
+                    },
+                    aiProcessing: "Analyzing your answers with AI...",
+                    intro: "As men and women age, our bodies require more attention: metabolism slows, joints lose flexibility and immunity becomes more sensitive. After 35, it's important not just to treat symptoms but to act ahead. This site is your personal health assistant. We provide personalized recommendations based on your needs and a scientific approach. Here you will find natural solutions for sleep, joints, heart, immunity and more. Start caring for yourself today so you can feel better, more energetic and confident tomorrow."
                 },
                 es: {
                     appName: "Salud",
@@ -916,9 +1051,10 @@
                     },
                     results: {
                         title: "Tus Recomendaciones Personalizadas",
-                        subtitle: "Según tus respuestas"
-                    }
-
+                        subtitle: "Recomendaciones impulsadas por IA según tus respuestas"
+                    },
+                    aiProcessing: "Analizando tus respuestas con IA...",
+                    intro: "A medida que hombres y mujeres envejecen, nuestro organismo necesita más atención: el metabolismo se ralentiza, las articulaciones pierden flexibilidad y la inmunidad se vuelve más sensible. Después de los 35 años es importante no solo eliminar los síntomas, sino actuar con anticipación. Este sitio es tu asistente personal de salud. Seleccionamos recomendaciones personalizadas basadas en tus necesidades y un enfoque científico. Aquí encontrarás soluciones naturales para el sueño, las articulaciones, el corazón, la inmunidad y mucho más. Comienza a cuidarte hoy para que mañana te sientas mejor, más enérgico y seguro."
                 },
                 pt: {
                     appName: "Saúde",
@@ -938,9 +1074,10 @@
                     },
                     results: {
                         title: "Suas Recomendações Personalizadas",
-                        subtitle: "Com base nas suas respostas"
-                    }
-
+                        subtitle: "Recomendações geradas por IA com base nas suas respostas"
+                    },
+                    aiProcessing: "Analisando suas respostas com IA...",
+                    intro: "À medida que homens e mulheres envelhecem, nosso corpo precisa de mais cuidados: o metabolismo desacelera, as articulações perdem flexibilidade e a imunidade fica mais sensível. Depois dos 35 anos é importante não apenas tratar os sintomas, mas agir de forma preventiva. Este site é seu assistente pessoal de saúde. Selecionamos recomendações personalizadas com base nas suas necessidades e em uma abordagem científica. Aqui você encontrará soluções naturais para sono, articulações, coração, imunidade e muito mais. Comece a cuidar de si hoje para amanhã se sentir melhor, mais disposto e confiante."
                 },
                 ru: {
                     appName: "Здоровье",
@@ -960,10 +1097,12 @@
                     },
                     results: {
                         title: "Ваши персональные рекомендации",
-                        subtitle: "На основе ваших ответов"
-                    }
+                        subtitle: "Рекомендации от ИИ на основе ваших ответов"
+                    },
+                    aiProcessing: "Анализируем ваши ответы с помощью ИИ...",
+                    intro: "С возрастом мужчины и женщины замечают, что наш организм требует больше внимания: обмен веществ замедляется, суставы теряют гибкость, иммунитет становится чувствительнее. Уже после 35 лет важно не просто устранять симптомы, а действовать на опережение. Этот сайт — ваш личный помощник по здоровью. Мы подбираем персональные рекомендации на основе ваших потребностей и научного подхода. Здесь вы найдёте натуральные решения для сна, суставов, сердца, иммунитета и многого другого. Начните заботиться о себе сегодня, чтобы завтра чувствовать себя лучше, бодрее и увереннее."
+                    },
 
-                }
             },
             categories: {
                 en: {
@@ -1236,7 +1375,7 @@
                             ru: "МиграРелиф Про"
                         },
                         price: "$49.99",
-                        icon: "💊",
+                        icon: "medication",
                         description: {
                             en: "Advanced migraine support formula",
                             es: "Fórmula avanzada para migrañas",
@@ -1260,7 +1399,7 @@
                             ru: "ЭнергиБуст Макс"
                         },
                         price: "$44.99",
-                        icon: "⚡",
+                        icon: "bolt",
                         description: {
                             en: "All-day energy support",
                             es: "Soporte energético todo el día",
@@ -1284,7 +1423,7 @@
                             ru: "Коллаген Красоты"
                         },
                         price: "$54.99",
-                        icon: "✨",
+                        icon: "spa",
                         description: {
                             en: "Premium skin support",
                             es: "Soporte premium para la piel",
@@ -1309,7 +1448,7 @@
                               ru: "ДжойнтФлекс Про"
                             },
                             price: "$39.99",
-                            icon: "🦴",
+                              icon: "accessibility_new",
                             description: {
                               en: "Advanced support for joint mobility",
                               es: "Soporte avanzado para la movilidad articular",
@@ -1331,7 +1470,7 @@
                               ru: "БонСтронг D3"
                             },
                             price: "$29.99",
-                            icon: "💪",
+                              icon: "fitness_center",
                             description: {
                               en: "Supports bone strength and density",
                               es: "Apoya la fortaleza y densidad ósea",
@@ -1353,7 +1492,7 @@
                               ru: "ФлексМув Гель"
                             },
                             price: "$19.99",
-                            icon: "🧴",
+                              icon: "healing",
                             description: {
                               en: "Topical relief for stiff joints",
                               es: "Alivio tópico para articulaciones rígidas",
@@ -1372,7 +1511,7 @@
                           {
                             name: { en: "SleepCalm", es: "SleepCalm", pt: "SleepCalm", ru: "СлипКалм" },
                             price: "$34.99",
-                            icon: "🌙",
+                            icon: "bedtime",
                             description: {
                               en: "Natural sleep aid for restful nights",
                               es: "Ayuda natural para dormir bien",
@@ -1389,7 +1528,7 @@
                           {
                             name: { en: "CalmMind Gummies", es: "Gomitas CalmMind", pt: "CalmMind Gomas", ru: "КалмМайнд Гамми" },
                             price: "$29.99",
-                            icon: "🍬",
+                            icon: "self_improvement",
                             description: {
                               en: "Tasty gummies to reduce stress",
                               es: "Gomitas sabrosas para reducir el estrés",
@@ -1406,7 +1545,7 @@
                           {
                             name: { en: "Melatonin Plus", es: "Melatonina Plus", pt: "Melatonina Plus", ru: "Мелатонин Плюс" },
                             price: "$24.99",
-                            icon: "🕯️",
+                            icon: "nights_stay",
                             description: {
                               en: "Melatonin blend with herbs",
                               es: "Mezcla de melatonina y hierbas",
@@ -1426,7 +1565,7 @@
                           {
                             name: { en: "ImmuneShield", es: "ImmuneShield", pt: "ImmuneShield", ru: "ИммунЩит" },
                             price: "$32.99",
-                            icon: "🛡️",
+                            icon: "health_and_safety",
                             description: {
                               en: "Daily immune defense formula",
                               es: "Fórmula diaria de defensa inmune",
@@ -1443,7 +1582,7 @@
                           {
                             name: { en: "Elderberry Boost", es: "Refuerzo de Saúco", pt: "Reforço de Sabugueiro", ru: "Буст Бузины" },
                             price: "$27.50",
-                            icon: "🫐",
+                            icon: "science",
                             description: {
                               en: "Powerful elderberry extract",
                               es: "Extracto de saúco potente",
@@ -1460,7 +1599,7 @@
                           {
                             name: { en: "Defense Gummies", es: "Gomitas Defensa", pt: "Gomas Defesa", ru: "Жевательные Иммунки" },
                             price: "$22.99",
-                            icon: "🍊",
+                            icon: "medical_services",
                             description: {
                               en: "Chewable immune support for adults",
                               es: "Soporte inmunológico masticable para adultos",
@@ -1479,7 +1618,7 @@
                           {
                             name: { en: "CardioCare", es: "CardioCare", pt: "CardioCare", ru: "КардиоКеа" },
                             price: "$36.99",
-                            icon: "❤️",
+                            icon: "favorite",
                             description: {
                               en: "Comprehensive heart support formula",
                               es: "Fórmula integral para el corazón",
@@ -1496,7 +1635,7 @@
                           {
                             name: { en: "Omega 3 Gold", es: "Omega 3 Oro", pt: "Ômega 3 Ouro", ru: "Омега 3 Голд" },
                             price: "$28.50",
-                            icon: "🐟",
+                            icon: "opacity",
                             description: {
                               en: "High-potency omega-3 supplement",
                               es: "Suplemento potente de omega-3",
@@ -1513,7 +1652,7 @@
                           {
                             name: { en: "HeartBeat Monitor", es: "Monitor de Latidos", pt: "Monitor de Batimentos", ru: "Монитор Пульса" },
                             price: "$59.99",
-                            icon: "📟",
+                            icon: "monitor_heart",
                             description: {
                               en: "Track your heart rate and rhythm",
                               es: "Monitorea tu ritmo cardíaco",
@@ -1532,7 +1671,7 @@
                           {
                             name: { en: "Vision Plus", es: "Visión Plus", pt: "Visão Plus", ru: "Вижн Плюс" },
                             price: "$35.00",
-                            icon: "👓",
+                            icon: "visibility",
                             description: {
                               en: "Daily supplement for eye health",
                               es: "Suplemento diario para la vista",
@@ -1549,7 +1688,7 @@
                           {
                             name: { en: "EarClear Drops", es: "Gotas EarClear", pt: "Gotas EarClear", ru: "Капли ЭарКлир" },
                             price: "$18.90",
-                            icon: "🦻",
+                            icon: "hearing",
                             description: {
                               en: "Gentle ear cleansing drops",
                               es: "Gotas suaves para limpieza auditiva",
@@ -1566,7 +1705,7 @@
                           {
                             name: { en: "EyeGuard Capsules", es: "Cápsulas EyeGuard", pt: "Cápsulas EyeGuard", ru: "АйГард Капсулы" },
                             price: "$26.75",
-                            icon: "🧿",
+                            icon: "visibility_off",
                             description: {
                               en: "Nutritional capsules for tired eyes",
                               es: "Cápsulas nutritivas para ojos cansados",
@@ -1589,6 +1728,16 @@
         let currentStep = 1;
         let selectedCategory = '';
         let userAnswers = {};
+        const categoryColors = {
+            head: '#9C27B0',
+            energy: '#FF9800',
+            skin: '#E91E63',
+            joints: '#2196F3',
+            sleep: '#3F51B5',
+            immunity: '#4CAF50',
+            heart: '#F44336',
+            vision: '#FFC107'
+        };
 
         // Initialize when page loads
         window.addEventListener('DOMContentLoaded', function() {
@@ -1597,14 +1746,15 @@
 
         function initializeApp() {
             // Setup theme toggle
-            const themeToggle = document.getElementById('themeBtn');
+            const themeToggle = document.getElementById('themeToggle');
             const savedTheme = localStorage.getItem('theme') || 'light';
-            
+
             if (savedTheme === 'dark') {
                 document.documentElement.setAttribute('data-theme', 'dark');
+                themeToggle.checked = true;
             }
 
-            themeToggle.addEventListener('click', toggleTheme);
+            themeToggle.addEventListener('change', toggleTheme);
 
             // Setup language
             const languageBtn = document.getElementById('languageBtn');
@@ -1634,15 +1784,15 @@
         }
 
         function toggleTheme() {
-            const currentTheme = localStorage.getItem('theme') || 'light';
-            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
-            
-            if (newTheme === 'dark') {
+            const isChecked = document.getElementById('themeToggle').checked;
+            const newTheme = isChecked ? 'dark' : 'light';
+
+            if (isChecked) {
                 document.documentElement.setAttribute('data-theme', 'dark');
             } else {
                 document.documentElement.removeAttribute('data-theme');
             }
-            
+
             localStorage.setItem('theme', newTheme);
         }
 
@@ -1680,6 +1830,7 @@
             document.getElementById('logoText').textContent = trans.appName;
             document.getElementById('welcomeTitle').textContent = trans.welcome.title;
             document.getElementById('welcomeSubtitle').textContent = trans.welcome.subtitle;
+            document.getElementById('introText').textContent = trans.intro;
             document.getElementById('categoryTitle').textContent = trans.categoryTitle;
             
             document.getElementById('navHome').textContent = trans.nav.home;
@@ -1691,6 +1842,7 @@
             document.getElementById('startOverBtn').textContent = trans.nav.startOver;
             document.getElementById('resultsTitle').textContent = trans.results.title;
             document.getElementById('resultsSubtitle').textContent = trans.results.subtitle;
+            document.getElementById('aiStatus').textContent = trans.aiProcessing;
             // document.getElementById('startOverBtn').textContent = trans.results.startOver;
 
         }
@@ -1704,15 +1856,16 @@
         'joints', 'sleep', 'immunity', 'heart', 'vision'
     ];
 
-    const icons = {
-        head: '🧠',
-        energy: '⚡',
-        skin: '✨',
-        joints: '🦴',
-        sleep: '🌙',
-        immunity: '🛡️',
-        heart: '❤️',
-        vision: '👁️'
+
+    const categoryIcons = {
+        head: 'psychology',
+        energy: 'bolt',
+        skin: 'spa',
+        joints: 'accessibility_new',
+        sleep: 'bedtime',
+        immunity: 'health_and_safety',
+        heart: 'favorite',
+        vision: 'visibility'
     };
 
     categories.forEach(cat => {
@@ -1720,8 +1873,11 @@
         card.className = 'category-card';
         card.onclick = () => selectCategory(cat);
 
+        const color = categoryColors[cat];
+        const iconName = categoryIcons[cat];
+        const icon = `<span class="material-icons" style="color:${color}">${iconName}</span>`;
         card.innerHTML = `
-            <div class="category-icon">${icons[cat]}</div>
+            <div class="category-icon" style="background-color:${color}22">${icon}</div>
             <div class="category-name">${appData.categories[currentLang][cat]}</div>
         `;
 
@@ -1735,6 +1891,7 @@
             userAnswers = {};
             showStep(2);
             displayQuestions();
+            document.querySelector('.main-content').scrollTo({ top: 0 });
         }
 
         function displayQuestions() {
@@ -1799,8 +1956,13 @@
                 return;
             }
             
-            showStep(3);
-            displayRecommendations();
+            const overlay = document.getElementById('loadingOverlay');
+            overlay.classList.add('active');
+            setTimeout(() => {
+                overlay.classList.remove('active');
+                showStep(3);
+                displayRecommendations();
+            }, 1500);
         }
 
         function displayRecommendations() {
@@ -1821,10 +1983,11 @@
                         </li>
                     `).join('');
                 
+                const color = categoryColors[selectedCategory];
                 productCard.innerHTML = `
                     <div class="match-badge">92% Match</div>
                     <div class="product-header">
-                        <div class="product-icon">${product.icon}</div>
+                        <div class="product-icon" style="background-color:${color}22"><span class="material-icons">${product.icon}</span></div>
                         <div class="product-info">
                             <h3 class="product-name">${product.name[currentLang]}</h3>
                             <div class="product-price">${product.price}</div>
@@ -1891,11 +2054,11 @@
             alert('Redirecting to product details...');
         }
 
-        function showTab(tab) {
+        function showTab(tab, e) {
             document.querySelectorAll('.nav-item').forEach(item => {
                 item.classList.remove('active');
             });
-            event.target.closest('.nav-item').classList.add('active');
+            e.target.closest('.nav-item').classList.add('active');
             
             console.log('Showing tab:', tab);
         }
